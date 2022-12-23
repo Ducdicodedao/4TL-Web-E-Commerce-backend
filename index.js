@@ -21,6 +21,33 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 
+app.use(function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://fourtl-web-e-commerce.onrender.com"
+    );
+
+    // Request methods you wish to allow
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+
+    // Request headers you wish to allow
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-Requested-With,content-type"
+    );
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader("Access-Control-Allow-Credentials", true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 const connect = async () => {
     try {
         // node > 17 => 127.0.0.1 else localhost
@@ -64,17 +91,17 @@ app.use(cookieParser());
 app.use(express.json());
 //app.get("/", test)
 // app.get("/backend/cookie", (req, res, next) => { const rs = res.cookie("an", "611").send("SET COOKIE"); console.log(rs) })
-app.use("/backend/auth", authRoute);
-app.use("/backend/users", usersRoute);
-app.use("/backend/shops", shopsRoute);
-app.use("/backend/products", productsRoute);
-app.use("/backend/checkouts", checkoutRoute);
-app.use("/backend/reviews", reviewRoute);
-app.use("/backend/paypal", paypalRoute);
-app.use("/backend/categories", categoryRoute);
-app.use("/backend/shippingCost", shippingCostRoute);
-app.use("/backend/auction", auctionRoute);
-app.use("/backend/checkoutAuction", checkoutAuctionRoute);
+app.use("/auth", authRoute);
+app.use("/users", usersRoute);
+app.use("/shops", shopsRoute);
+app.use("/products", productsRoute);
+app.use("/checkouts", checkoutRoute);
+app.use("/reviews", reviewRoute);
+app.use("/paypal", paypalRoute);
+app.use("/categories", categoryRoute);
+app.use("/shippingCost", shippingCostRoute);
+app.use("/auction", auctionRoute);
+app.use("/checkoutAuction", checkoutAuctionRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
