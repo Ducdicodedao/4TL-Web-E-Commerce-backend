@@ -23,10 +23,7 @@ dotenv.config();
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://fourtl-web-e-commerce.onrender.com"
-    );
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 
     // Request methods you wish to allow
     res.setHeader(
