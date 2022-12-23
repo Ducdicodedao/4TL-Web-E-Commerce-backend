@@ -105,7 +105,10 @@ export const selectAllProductsByMainCategory = async (req, res, next) => {
 // search products
 export const searchProduct = async (req, res, next) => {
     try {
-        const input = getTextSearch(req.query.text);
+        let input = req.query.text;
+        try {
+            input = req.query.text.replaceAll("-", " "); //getTextSearch(req.query.text);
+        } catch (error) {}
         const cgrId = req.query.cgrId;
 
         let products;

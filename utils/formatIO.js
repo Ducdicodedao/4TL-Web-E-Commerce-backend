@@ -14,5 +14,12 @@ export const getFormatDate = (date) => {
     return formattedDate;
 };
 export const getTextSearch = (input) => {
-    return input.replaceAll("-", " ");
+    try {
+        if (typeof input === "string") {
+            return input.replaceAll("-", " ");
+        } else {
+            let text = input.toString();
+            return text.replaceAll("-", " ");
+        }
+    } catch (error) {}
 };
